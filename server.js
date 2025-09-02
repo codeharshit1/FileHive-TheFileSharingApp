@@ -3,6 +3,7 @@ const express = require('express');
 const connectDB = require('./config/db');
 const app = express();
 const path = require('path');
+const cors = require('cors');
 
 const PORT = process.env.PORT || 3000;
 app.use(express.static('public'));
@@ -12,6 +13,11 @@ app.set('view engine', 'ejs');
 
 connectDB();
 
+const corsOptions = {
+  origin: "*"
+}
+
+app.use(cors(corsOptions));
 app.use('/api/files', require('./routes/files'));
 app.use('/files', require('./routes/show'));
 app.use('/files/download', require('./routes/download'));
